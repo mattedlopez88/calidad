@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Consulta de clientes</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "csv-parse/sync": "./node_modules/csv-parse/dist/esm/sync.js",
+          "chart.js": "./node_modules/chart.js/dist/chart.js",
+          "@kurkle/color": "./node_modules/@kurkle/color/dist/color.esm.js"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <header>
+      <h1>Consulta de clientes</h1>
+      <p>Seleccione un archivo CSV. Debe incluir como mínimo las columnas: id, nombre, email, ciudad, edad.</p>
+    </header>
+
+    <section id="load">
+      <label for="fileInput">Archivo CSV:</label>
+      <input id="fileInput" type="file" accept=".csv" />
+      <p id="error" class="error" hidden></p>
+      <p id="counts" class="counts"></p>
+    </section>
+
+    <section id="controls">
+      <h2>Consultas</h2>
+      <div class="row">
+        <label>ID: <input id="inputId" type="text" /></label>
+        <button id="btnSearchId" type="button">Buscar por ID</button>
+      </div>
+      <div class="row">
+        <label>Ciudad: <input id="inputCiudad" type="text" /></label>
+        <button id="btnSearchCity" type="button">Listar por ciudad</button>
+      </div>
+      <div class="row">
+        <label>Edad mín: <input id="inputMin" type="number" min="0" /></label>
+        <label>Edad máx: <input id="inputMax" type="number" min="0" /></label>
+        <button id="btnFilterAge" type="button">Filtrar por rango</button>
+      </div>
+      <div class="row">
+        <button id="btnSort" type="button">Ordenar por edad</button>
+        <button id="btnClear" type="button">Limpiar filtros</button>
+      </div>
+    </section>
+
+    <section id="results" hidden>
+      <p id="timing" class="timing"></p>
+      <table>
+        <thead id="resultsHead"></thead>
+        <tbody id="resultsBody"></tbody>
+      </table>
+    </section>
+
+    <section id="invalid" hidden>
+      <details>
+        <summary>Registros inválidos</summary>
+        <ul id="invalidList"></ul>
+      </details>
+    </section>
+
+    <section id="stats" hidden>
+      <h2>Estadísticas — distribución por edad</h2>
+      <canvas id="chart" width="600" height="300"></canvas>
+    </section>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
